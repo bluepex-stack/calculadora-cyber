@@ -6,7 +6,6 @@
     <title>CyberShield ROI - Calculadora de Downtime</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     
-    <!-- Estilos especiais para controlar o que aparece na tela e o que sai no PDF -->
     <style>
         @media print {
             body { background: white !important; color: #111827 !important; padding: 0 !important; }
@@ -18,71 +17,102 @@
 </head>
 <body class="bg-gray-900 text-gray-100 font-sans min-h-screen flex items-center justify-center p-4">
 
-    <!-- CONTAINER DA CALCULADORA (SOME NA HORA DE IMPRIMIR) -->
-    <div class="no-print max-w-5xl w-full bg-gray-800 rounded-2xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
+    <div class="no-print max-w-6xl w-full bg-gray-800 rounded-2xl shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-12">
         
-        <!-- COLUNA 1: ENTRADA DE DADOS -->
-        <div class="p-8 border-b md:border-b-0 md:border-r border-gray-700">
-            <div class="flex items-center gap-2 mb-6">
+        <div class="p-8 border-b lg:border-b-0 lg:border-r border-gray-700 lg:col-span-7 max-h-[90vh] overflow-y-auto">
+            <div class="flex items-center gap-2 mb-4">
                 <span class="text-2xl">🛡️</span>
                 <h1 class="text-xl font-bold tracking-tight text-emerald-400">CyberShield ROI</h1>
             </div>
-            <p class="text-sm text-gray-400 mb-6">Insira os dados da PME para calcular o impacto financeiro de um apagão digital.</p>
+            <p class="text-xs text-gray-400 mb-6">Sofistique o cálculo adicionando os prejuízos operacionais ocultos causados por incidentes.</p>
             
-            <div class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Nome da Empresa do Cliente</label>
-                    <input type="text" id="nomeEmpresa" value="Prospect Exemplo Ltda" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-3 text-white focus:outline-none focus:border-emerald-500">
+            <div class="space-y-6">
+                <div class="bg-gray-700/30 p-4 rounded-xl border border-gray-700/50 space-y-3">
+                    <h3 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">1. Identificação</h3>
+                    <div>
+                        <label class="block text-[10px] font-semibold text-gray-400 uppercase mb-1">Nome da Empresa</label>
+                        <input type="text" id="nomeEmpresa" value="Prospect Exemplo Ltda" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
                 </div>
 
-                <div>
-                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Faturamento Bruto Anual (R$)</label>
-                    <input type="number" id="faturamento" value="6000000" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-3 text-white focus:outline-none focus:border-emerald-500">
-                </div>
-                
-                <div>
-                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Nº de Funcionários Afetados</label>
-                    <input type="number" id="funcionarios" value="20" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-3 text-white focus:outline-none focus:border-emerald-500">
-                </div>
-                
-                <div>
-                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Salário Médio Bruto (R$)</label>
-                    <input type="number" id="salario" value="3000" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-3 text-white focus:outline-none focus:border-emerald-500">
+                <div class="bg-gray-700/30 p-4 rounded-xl border border-gray-700/50 space-y-3">
+                    <h3 class="text-xs font-bold text-emerald-400 uppercase tracking-wider">2. Dados Operacionais Básicos</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[10px] font-semibold text-gray-400 uppercase mb-1">Faturamento Anual (R$)</label>
+                            <input type="number" id="faturamento" value="6000000" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-semibold text-gray-400 uppercase mb-1">Nº Funcionários Afetados</label>
+                            <input type="number" id="funcionarios" value="20" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-semibold text-gray-400 uppercase mb-1">Salário Médio Bruto (R$)</label>
+                        <input type="number" id="salario" value="3000" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
                 </div>
 
-                <div>
-                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Valor da Sua Solução (Anual - R$)</label>
-                    <input type="number" id="custoSolucao" value="14400" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-3 text-white focus:outline-none focus:border-emerald-500">
+                <div class="bg-gray-700/30 p-4 rounded-xl border border-gray-700/50 space-y-3 border-amber-500/20">
+                    <h3 class="text-xs font-bold text-amber-400 uppercase tracking-wider">3. Impactos e Custos Ocultos</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[10px] font-semibold text-gray-400 uppercase mb-1">Multas de Contrato / SLA (Por Hora)</label>
+                            <input type="number" id="multaSla" value="500" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-semibold text-gray-400 uppercase mb-1">Anúncios/Marketing Desperdiçado (Por Hora)</label>
+                            <input type="number" id="marketingHora" value="150" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-semibold text-gray-400 uppercase mb-1">Custo de Recuperação Emergencial (Fixo por Evento)</label>
+                        <input type="number" id="custoRecuperacao" value="2500" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
                 </div>
-                
-                <div>
-                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Tempo de Parada Estimado (Horas)</label>
-                    <div class="flex items-center gap-3">
-                        <input type="range" id="horas" min="1" max="48" value="4" class="w-full accent-emerald-500">
-                        <span id="horasValor" class="font-bold text-emerald-400 min-w-[3ch]">4h</span>
+
+                <div class="bg-gray-700/30 p-4 rounded-xl border border-gray-700/50 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-[10px] font-semibold text-gray-400 uppercase mb-1">Sua Solução (Investimento Anual)</label>
+                        <input type="number" id="custoSolucao" value="14400" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-2 text-sm text-white focus:outline-none focus:border-emerald-500">
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-semibold text-gray-400 uppercase mb-1">Tempo Estimado de Parada</label>
+                        <div class="flex items-center gap-3 mt-1">
+                            <input type="range" id="horas" min="1" max="48" value="4" class="w-full accent-emerald-500">
+                            <span id="horasValor" class="font-bold text-emerald-400 text-sm min-w-[3ch]">4h</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
         
-        <!-- COLUNA 2: RESULTADOS VISUAIS -->
-        <div class="p-8 bg-gray-800/50 flex flex-col justify-between">
-            <div>
-                <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Análise de Impacto Financeiro</h2>
+        <div class="p-8 bg-gray-800/50 lg:col-span-5 flex flex-col justify-between">
+            <div class="space-y-6">
+                <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-wider">Resultado da Simulação</h2>
                 
-                <div class="bg-red-500/10 border border-red-500/20 rounded-xl p-5 mb-4">
+                <div class="bg-red-500/10 border border-red-500/20 rounded-xl p-5">
                     <span class="text-xs font-semibold text-red-400 uppercase block mb-1">Prejuízo Total Estimado</span>
                     <div id="prejuizoTotal" class="text-3xl font-extrabold text-red-400">R$ 0,00</div>
+                    <span class="text-[10px] text-gray-400 block mt-1">(Inclui custos por hora acumulados + custos fixos emergenciais)</span>
                 </div>
 
-                <div class="grid grid-cols-2 gap-4 mb-6">
-                    <div class="bg-gray-700/50 rounded-lg p-3">
-                        <span class="text-[10px] uppercase text-gray-400 block">Faturamento / Hora</span>
-                        <span id="faturamentoHora" class="text-sm font-bold text-white">R$ 0,00</span>
+                <div class="space-y-2 text-xs">
+                    <div class="flex justify-between p-2 bg-gray-700/30 rounded">
+                        <span class="text-gray-400">Faturamento Real Perdido / Hora:</span>
+                        <span id="faturamentoHora" class="font-bold text-white">R$ 0,00</span>
                     </div>
-                    <div class="bg-gray-700/50 rounded-lg p-3">
-                        <span class="text-[10px] uppercase text-gray-400 block">Ociosidade / Hora</span>
-                        <span id="ociosidadeHora" class="text-sm font-bold text-white">R$ 0,00</span>
+                    <div class="flex justify-between p-2 bg-gray-700/30 rounded">
+                        <span class="text-gray-400">Ociosidade de Funcionários / Hora:</span>
+                        <span id="ociosidadeHora" class="font-bold text-white">R$ 0,00</span>
+                    </div>
+                    <div class="flex justify-between p-2 bg-gray-700/30 rounded border-l-2 border-amber-500">
+                        <span class="text-amber-400">Custos Ocultos Acumulados / Hora:</span>
+                        <span id="ocultosHoraTotal" class="font-bold text-white">R$ 0,00</span>
+                    </div>
+                    <div class="flex justify-between p-2 bg-gray-700/30 rounded border-l-2 border-red-500">
+                        <span class="text-red-400">Taxa Fixa de Incidentes (TI/Suporte):</span>
+                        <span id="fixoRecuperacao" class="font-bold text-white">R$ 0,00</span>
                     </div>
                 </div>
 
@@ -98,89 +128,86 @@
     </div>
 
 
-    <!-- ================================================================= -->
-    <!-- TEMPLATE DO RELATÓRIO DO DIRETOR (SÓ APARECE NO PDF/IMPRESSÃO) -->
-    <!-- ================================================================= -->
-    <div class="print-only max-w-4xl w-full mx-auto bg-white p-12 text-gray-900">
-        <!-- Cabeçalho Executivo -->
-        <div class="border-b-2 border-red-600 pb-6 mb-8 flex justify-between items-end">
+    <div class="print-only max-w-4xl w-full mx-auto bg-white p-12 text-gray-900 text-sm">
+        <div class="border-b-2 border-red-600 pb-4 mb-6 flex justify-between items-end">
             <div>
-                <h1 class="text-2xl font-bold text-gray-900 uppercase tracking-tight">Análise de Risco Operacional & Impacto Financeiro</h1>
-                <p class="text-sm text-gray-600 mt-1">Documento preparado exclusivamente para a Diretoria Executiva</p>
+                <h1 class="text-xl font-bold text-gray-900 uppercase">Análise Estratégica de Risco e Continuidade de Negócios</h1>
+                <p class="text-xs text-gray-600">Mapeamento de Impacto Financeiro Gerado por Incidentes de Conectividade e Segurança</p>
             </div>
             <div class="text-right">
-                <span class="text-sm font-bold text-red-600 uppercase block tracking-wider">Altamente Confidencial</span>
+                <span class="text-xs font-bold text-red-600 uppercase tracking-wider block">Estritamente Confidencial</span>
             </div>
         </div>
 
-        <!-- Meta Dados -->
-        <div class="grid grid-cols-2 gap-4 bg-gray-100 p-4 rounded-xl mb-8 text-sm">
-            <div><b>Organização Analisada:</b> <span id="repNome"></span></div>
-            <div><b>Framework de Análise:</b> Gestão de Risco e Continuidade de Negócio</div>
+        <div class="bg-gray-100 p-3 rounded-lg mb-6 grid grid-cols-2 gap-2 text-xs">
+            <div><b>Organização:</b> <span id="repNome"></span></div>
+            <div><b>Metodologia:</b> Avaliação de Perda Operacional e Lucro Cessante</div>
         </div>
 
-        <!-- Seção 1: O Sumário do Risco -->
-        <div class="mb-8">
-            <h2 class="text-lg font-bold text-gray-800 border-b border-gray-300 pb-1 mb-3">1. Diagnóstico de Vulnerabilidade Financeira</h2>
-            <p class="text-sm text-gray-700 leading-relaxed">
-                Esta análise avalia o impacto financeiro direto em caso de indisponibilidade sistêmica (parada de firewall, perda de conectividade ou comprometimento de dispositivos locais). Em empresas modernas, a interrupção das ferramentas digitais desativa a força de vendas, paralisa o faturamento e gera custo imediato de ociosidade operacional.
+        <div class="mb-6">
+            <h2 class="text-sm font-bold text-gray-800 border-b border-gray-300 pb-1 mb-2">1. Escopo do Diagnóstico</h2>
+            <p class="text-xs text-gray-700 leading-relaxed">
+                Este relatório projeta as perdas financeiras diretas e indiretas caso a infraestrutura digital da empresa sofra uma interrupção (falha de firewall, perda de links ou indisponibilidade por ataques). O cálculo engloba a incapacidade produtiva comercial, o desperdício de folha de pagamento ativa e os gargalos legais e contratuais.
             </p>
         </div>
 
-        <!-- Seção 2: Os Números do Impacto (Tabela Limpa) -->
-        <div class="mb-8">
-            <h2 class="text-lg font-bold text-gray-800 border-b border-gray-300 pb-1 mb-4">2. Mensuração do Impacto Estimado</h2>
-            <table class="w-full text-left border-collapse text-sm">
+        <div class="mb-6">
+            <h2 class="text-sm font-bold text-gray-800 border-b border-gray-300 pb-1 mb-3">2. Detalhamento do Impacto Financeiro</h2>
+            <table class="w-full text-left text-xs border-collapse">
                 <thead>
                     <tr class="bg-gray-800 text-white">
-                        <th class="p-3 rounded-l">Métrica Analisada</th>
-                        <th class="p-3 text-right rounded-r">Custo / Impacto</th>
+                        <th class="p-2 rounded-l">Componente do Risco Mapeado</th>
+                        <th class="p-2 text-right rounded-r">Impacto Computado</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-200">
                     <tr>
-                        <td class="p-3 text-gray-700">Capacidade Volumétrica de Faturamento Perdido (Por Hora)</td>
-                        <td id="repFatHora" class="p-3 text-right font-medium text-gray-900">R$ 0,00</td>
+                        <td class="p-2 text-gray-700">Faturamento Comercial Direto Cessante (Por Hora)</td>
+                        <td id="repFatHora" class="p-2 text-right font-medium">R$ 0,00</td>
                     </tr>
                     <tr>
-                        <td class="p-3 text-gray-700">Custo Real de Ociosidade da Equipe Afetada (Por Hora com Encargos)</td>
-                        <td id="repOcioHora" class="p-3 text-right font-medium text-gray-900">R$ 0,00</td>
+                        <td class="p-2 text-gray-700">Ociosidade da Folha de Pagamento Afetada (Por Hora com Encargos CLT)</td>
+                        <td id="repOcioHora" class="p-2 text-right font-medium">R$ 0,00</td>
                     </tr>
-                    <tr class="bg-red-50 font-bold text-red-700">
-                        <td class="p-3">PREJUÍZO ACUMULADO EM CENÁRIO DE PARADA DE <span id="repHorasFiltro">0</span> HORAS</td>
-                        <td id="repPrejuizoTotal" class="p-3 text-right text-lg">R$ 0,00</td>
+                    <tr>
+                        <td class="p-2 text-gray-700">Custos Contratuais & Multas de Descumprimento de SLA (Por Hora)</td>
+                        <td id="repMultaSla" class="p-2 text-right font-medium text-amber-700">R$ 0,00</td>
+                    </tr>
+                    <tr>
+                        <td class="p-2 text-gray-700">Desperdício de Verba de Atração / Marketing Digital (Por Hora)</td>
+                        <td id="repMktHora" class="p-2 text-right font-medium text-amber-700">R$ 0,00</td>
+                    </tr>
+                    <tr>
+                        <td class="p-2 text-gray-700">Taxa de Resposta a Incidentes (Acionamento de TI Emergencial Fixo)</td>
+                        <td id="repFixoRec" class="p-2 text-right font-medium text-red-600">R$ 0,00</td>
+                    </tr>
+                    <tr class="bg-red-50 font-bold text-red-700 text-sm">
+                        <td class="p-2">PREJUÍZO CONSOLIDADO EM CENÁRIO DE <span id="repHorasFiltro">0</span> HORAS DE PARADA</td>
+                        <td id="repPrejuizoTotal" class="p-2 text-right text-base">R$ 0,00</td>
                     </tr>
                 </tbody>
             </table>
-            <p class="text-[11px] text-gray-500 mt-2">*Nota: O cálculo de ociosidade considera o multiplicador padrão de 1.8x sobre a folha bruta para acomodar encargos trabalhistas do modelo tributário brasileiro.</p>
         </div>
 
-        <!-- Seção 3: Racional de Negócio -->
-        <div class="mb-8">
-            <h2 class="text-lg font-bold text-gray-800 border-b border-gray-300 pb-1 mb-3">3. Racional de Proteção e Mitigação do Risco</h2>
-            <p class="text-sm text-gray-700 leading-relaxed mb-4">
-                Diferente de investimentos tradicionais em infraestrutura, a implementação de segurança digital robusta atua diretamente na blindagem do fluxo de caixa. O custo para remediar um incidente ativo é exponencialmente superior ao custo de blindagem preditiva.
-            </p>
-            <div class="bg-emerald-50 border-l-4 border-emerald-500 p-4 rounded-r-xl">
-                <h3 class="text-sm font-bold text-emerald-800 mb-1">Cenário Comparativo e Payback do Projeto:</h3>
-                <p id="repInsight" class="text-sm text-emerald-900 leading-relaxed"></p>
+        <div class="mb-6">
+            <h2 class="text-sm font-bold text-gray-800 border-b border-gray-300 pb-1 mb-2">3. Racional Preventivo vs. Custo de Inércia</h2>
+            <div class="bg-emerald-50 border-l-4 border-emerald-500 p-4 rounded-r-xl text-xs">
+                <h3 class="text-xs font-bold text-emerald-800 mb-1">Análise de Viabilidade Financeira (ROI):</h3>
+                <p id="repInsight" class="text-emerald-900 leading-relaxed"></p>
             </div>
         </div>
 
-        <!-- Rodapé / Assinatura -->
-        <div class="mt-16 pt-8 border-t border-gray-200 text-center text-xs text-gray-500 flex justify-between">
-            <div>Gerado via Framework CyberShield ROI</div>
-            <div>Aprovação da Diretoria Executiva: ____/____/_______</div>
+        <div class="mt-12 pt-6 border-t border-gray-200 text-center text-[10px] text-gray-500 flex justify-between">
+            <div>Mapeamento gerado pelo ecossistema CyberShield ROI</div>
+            <div>Visto da Diretoria Operacional: ____/____/_______</div>
         </div>
     </div>
 
 
-    <!-- LÓGICA DE CÁLCULO E INJEÇÃO DE DADOS -->
     <script>
-        const inputs = ['nomeEmpresa', 'faturamento', 'funcionarios', 'salario', 'custoSolucao', 'horas'];
+        const inputs = ['nomeEmpresa', 'faturamento', 'funcionarios', 'salario', 'custoSolucao', 'horas', 'multaSla', 'marketingHora', 'custoRecuperacao'];
         
         function calcular() {
-            // Captura de valores
             const nomeEmpresa = document.getElementById('nomeEmpresa').value || 'Empresa Prospect';
             const fatAnual = parseFloat(document.getElementById('faturamento').value) || 0;
             const qtdFunc = parseInt(document.getElementById('funcionarios').value) || 0;
@@ -188,35 +215,46 @@
             const custoSolucao = parseFloat(document.getElementById('custoSolucao').value) || 0;
             const horasParadas = parseInt(document.getElementById('horas').value) || 1;
             
-            // Atualiza o texto do slider de horas na interface
+            // Capturando os novos fatores
+            const multaSla = parseFloat(document.getElementById('multaSla').value) || 0;
+            const mktHora = parseFloat(document.getElementById('marketingHora').value) || 0;
+            const fixoRecuperacao = parseFloat(document.getElementById('custoRecuperacao').value) || 0;
+            
             document.getElementById('horasValor').innerText = horasParadas + 'h';
             
             // Fórmulas
             const fatHora = fatAnual / 2000; 
             const custoFuncHora = qtdFunc * ((salMedio * 1.8) / 176); 
-            const prejuizoPorHora = fatHora + custoFuncHora;
-            const prejuizoTotalCalculado = JackPot(prejuizoPorHora * horasParadas);
+            const ocultosHoraTotal = multaSla + mktHora;
             
-            // Equivalência de Investimento
+            // Prejuízo = (Custos por hora multiplicados pelas horas) + Custo Fixo de TI
+            const prejuizoPorHora = fatHora + custoFuncHora + ocultosHoraTotal;
+            const prejuizoTotalCalculado = JackPot((prejuizoPorHora * horasParadas) + fixoRecuperacao);
+            
+            // Percentual de equivalência do projeto comercial
             const pctCusto = ((custoSolucao / prejuizoTotalCalculado) * 100).toFixed(0);
             const pctFormatado = JackZero(pctCusto);
 
-            // 1. Renderiza os dados na Tela Escura (Analista)
+            // 1. Atualizando a Interface do Vendedor (Painel Escuro)
             document.getElementById('faturamentoHora').innerText = formatarMoeda(fatHora);
             document.getElementById('ociosidadeHora').innerText = formatarMoeda(custoFuncHora);
+            document.getElementById('ocultosHoraTotal').innerText = formatarMoeda(ocultosHoraTotal);
+            document.getElementById('fixoRecuperacao').innerText = formatarMoeda(fixoRecuperacao);
             document.getElementById('prejuizoTotal').innerText = formatarMoeda(prejuizoTotalCalculado);
             
-            const textoInsight = `💡 <b>Visão Executiva:</b> O investimento anual na sua segurança representa apenas <b>${pctFormatado}%</b> do prejuízo de uma única pane de ${horasParadas} horas. Evitar uma única queda paga o projeto inteiro.`;
-            document.getElementById('insightTexto').innerHTML = textoInsight;
+            document.getElementById('insightTexto').innerHTML = `💡 <b>Visão Executiva:</b> O investimento anual na proteção representa apenas <b>${pctFormatado}%</b> do prejuízo mapeado para uma queda de ${horasParadas} horas. O projeto se paga sozinho ao mitigar o primeiro evento de falha.`;
             
-            // 2. Injeta os dados dinamicamente no Relatório do Diretor (PDF)
+            // 2. Atualizando o Relatório Executivo Oculto (Impressão/PDF)
             document.getElementById('repNome').innerText = nomeEmpresa;
             document.getElementById('repFatHora').innerText = formatarMoeda(fatHora);
             document.getElementById('repOcioHora').innerText = formatarMoeda(custoFuncHora);
+            document.getElementById('repMultaSla').innerText = formatarMoeda(multaSla);
+            document.getElementById('repMktHora').innerText = formatarMoeda(mktHora);
+            document.getElementById('repFixoRec').innerText = formatarMoeda(fixoRecuperacao);
             document.getElementById('repHorasFiltro').innerText = horasParadas;
             document.getElementById('repPrejuizoTotal').innerText = formatarMoeda(prejuizoTotalCalculado);
             
-            document.getElementById('repInsight').innerHTML = `O investimento total anual proposto para blindagem tecnológica é de <b>${formatarMoeda(custoSolucao)}</b>. Esse valor representa apenas <b>${pctFormatado}%</b> do impacto financeiro mapeado para um único evento crítico de ${horasParadas} horas de paralisação. Estatisticamente, a ativação do projeto se paga imediatamente ao mitigar a primeira ocorrência de falha.`;
+            document.getElementById('repInsight').innerHTML = `A implementação anual planejada da solução de segurança e contingência exige um aporte de <b>${formatarMoeda(custoSolucao)}</b>. Ao confrontar este valor com o cenário de risco analisado, constata-se que a contratação preventiva consome o equivalente a apenas <b>${pctFormatado}%</b> do impacto gerado por uma única interrupção operacional de ${horasParadas} horas. Do ponto de vista de Governança e Risco Corporativo, a inércia representa uma exposição desproporcional ao fluxo de caixa da empresa.`;
         }
 
         function formatarMoeda(valor) {
@@ -226,10 +264,7 @@
         function JackPot(v) { return v < 0 ? 0 : v; }
         function JackZero(v) { return isNaN(v) || !isFinite(v) ? 0 : v; }
 
-        // Eventos para recalcular automaticamente
         inputs.forEach(id => document.getElementById(id).addEventListener('input', calcular));
-        
-        // Execução inicial
         calcular();
     </script>
 </body>
