@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CyberShield ROI - Calculadora de Downtime</title>
+    <!-- Tailwind CSS para um design moderno e limpo -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-900 text-gray-100 font-sans min-h-screen flex items-center justify-center p-4">
+
+    <div class="max-w-5xl w-full bg-gray-800 rounded-2xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2">
+        
+        <!-- COLUNA 1: ENTRADA DE DADOS -->
+        <div class="p-8 border-b md:border-b-0 md:border-r border-gray-700">
+            <div class="flex items-center gap-2 mb-6">
+                <span class="text-2xl">🛡️</span>
+                <h1 class="text-xl font-bold tracking-tight text-emerald-400">CyberShield ROI</h1>
+            </div>
+            <p class="text-sm text-gray-400 mb-6">Insira os dados da PME para calcular o impacto financeiro de um apagão digital.</p>
+            
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Faturamento Bruto Anual (R$)</label>
+                    <input type="number" id="faturamento" value="6000000" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-3 text-white focus:outline-none focus:border-emerald-500">
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Nº de Funcionários Afetados</label>
+                    <input type="number" id="funcionarios" value="20" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-3 text-white focus:outline-none focus:border-emerald-500">
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Salário Médio Bruto (R$)</label>
+                    <input type="number" id="salario" value="3000" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-3 text-white focus:outline-none focus:border-emerald-500">
+                </div>
+
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Valor da Sua Solução (Anual - R$)</label>
+                    <input type="number" id="custoSolucao" value="14400" class="w-full bg-gray-700 border border-gray-600 rounded-lg p-3 text-white focus:outline-none focus:border-emerald-500">
+                </div>
+                
+                <div>
+                    <label class="block text-xs font-semibold text-gray-400 uppercase mb-1">Tempo de Parada Estimado (Horas)</label>
+                    <div class="flex items-center gap-3">
+                        <input type="range" id="horas" min="1" max="48" value="4" class="w-full accent-emerald-500">
+                        <span id="horasValor" class="font-bold text-emerald-400 min-w-[3ch]">4h</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- COLUNA 2: RESULTADOS (O GRÁFICO/DASHBOARD COGNITIVO) -->
+        <div class="p-8 bg-gray-800/50 flex flex-col justify-between">
+            <div>
+                <h2 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">Análise de Impacto Financeiro</h2>
+                
+                <div class="bg-red-500/10 border border-red-500/20 rounded-xl p-5 mb-4">
+                    <span class="text-xs font-semibold text-red-400 uppercase block mb-1">Prejuízo Total Estimado</span>
+                    <div id="prejuizoTotal" class="text-3xl font-extrabold text-red-400">R$ 0,00</div>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div class="bg-gray-700/50 rounded-lg p-3">
+                        <span class="text-[10px] uppercase text-gray-400 block">Faturamento / Hora</span>
+                        <span id="faturamentoHora" class="text-sm font-bold text-white">R$ 0,00</span>
+                    </div>
+                    <div class="bg-gray-700/50 rounded-lg p-3">
+                        <span class="text-[10px] uppercase text-gray-400 block">Ociosidade / Hora</span>
+                        <span id="ociosidadeHora" class="text-sm font-bold text-white">R$ 0,00</span>
+                    </div>
+                </div>
+
+                <div class="bg-emerald-500/10 border border-emerald-500/20 rounded-xl p-4">
+                    <p id="insightTexto" class="text-xs text-emerald-300 leading-relaxed">
+                        <!-- Gerado via JS -->
+                    </p>
+                </div>
+            </div>
+            
+            <button onclick="alert('PDF Executivo Gerado! (Simulação da funcionalidade)')" class="w-full mt-6 bg-emerald-500 hover:bg-emerald-600 text-gray-900 font-bold p-3 rounded-lg transition duration-200 cursor-pointer text-center text-sm">
+                📄 Gerar Relatório para a Diretoria
+            </button>
+        </div>
+        
+    </div>
+
+    <!-- LÓGICA DE CÁLCULO -->
+    <script>
+        const inputs = ['faturamento', 'funcionarios', 'salario', 'custoSolucao', 'horas'];
+        
+        function calcular() {
+            // Captura de valores
+            const fatAnual = parseFloat(document.getElementById('faturamento').value) || 0;
+            const qtdFunc = parseInt(document.getElementById('funcionarios').value) || 0;
+            const salMedio = parseFloat(document.getElementById('salario').value) || 0;
+            const custoSolucao = parseFloat(document.getElementById('custoSolucao').value) || 0;
+            const horasParadas = parseInt(document.getElementById('horas').value) || 1;
+            
+            // Atualiza o texto do slider de horas
+            document.getElementById('horasValor').innerText = horasParadas + 'h';
+            
+            // Fórmulas Baseadas nas Regras de Negócio Brasileiras
+            const fatHora = fatAnual / 2000; // 250 dias x 8 horas
+            const custoFuncHora = qtdFunc * ((salMedio * 1.8) / 176); // Custo CLT estimado em 1.8x s/ 176h mensais
+            
+            const prejuizoPorHora = fatHora + custoFuncHora;
+            const prejuizoTotal = JackPot(prejuizoPorHora * horasParadas);
+            
+            // Equivalência de Investimento
+            const pctCusto = ((custoSolucao / (prejuizoPorHora * horasParadas)) * 100).toFixed(0);
+
+            // Renderização dos resultados formatados em Moeda Real
+            document.getElementById('faturamentoHora').innerText = formatarMoeda(fatHora);
+            document.getElementById('ociosidadeHora').innerText = formatarMoeda(custoFuncHora);
+            document.getElementById('prejuizoTotal').innerText = formatarMoeda(prejuizoPorHora * horasParadas);
+            
+            // Insight dinâmico para o Analista usar contra o Diretor
+            document.getElementById('insightTexto').innerHTML = `💡 <b>Visão Executiva:</b> O investimento anual na sua segurança representa apenas <b>${JackZero(pctCusto)}%</b> do prejuízo de uma única pane de ${horasParadas} horas. Evitar uma única queda paga o projeto inteiro.`;
+        }
+
+        function formatarMoeda(valor) {
+            return valor.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+        }
+
+        function JackPot(v) { return v < 0 ? 0 : v; }
+        function JackZero(v) { return isNaN(v) || !isFinite(v) ? 0 : v; }
+
+        // Adiciona ouvintes de eventos para recalcular ao digitar/mover sliders
+        inputs.forEach(id => document.getElementById(id).addEventListener('input', calcular));
+        
+        // Executa o cálculo inicial
+        calcular();
+    </script>
+</body>
+</html>
